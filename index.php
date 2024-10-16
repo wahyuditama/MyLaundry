@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+// empty() : kosong
+if (empty($_SESSION['NAMA'])) {
+  header("location:login.php?access=failed");
+}
 include 'koneksi.php';
 include 'function/helper.php';
 ?>
@@ -31,11 +36,14 @@ include 'function/helper.php';
       ?>
     </div>
 
-    <footer class="text-center  p-3">Copyright &copy; 2024 PPKD - Jakarta Pusat.</footer>
+    <!-- <footer class="text-center  p-3">Copyright &copy; 2024 PPKD - Jakarta Pusat.</footer> -->
   </div>
   <!-- <script src="assets/dist/js/jquery-3.7.1.min.js"></script> -->
   <!-- <script src="assets/dist/js/bootstrap.min.js"></script> -->
   <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+
+
 </body>
 
 </html>

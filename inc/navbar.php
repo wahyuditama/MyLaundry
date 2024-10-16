@@ -27,6 +27,9 @@
                         <a class="nav-link" href="?pg=user">Manage Accounts</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="?pg=anggota">Anggota</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="?pg=level">Level</a>
                     </li>
                     <li class="nav-item">
@@ -35,7 +38,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="?pg=buku"> Buku</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?pg=peminjaman"> Peminjaman</a>
+                    </li>
                 </ul>
+
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="keluar.php"> Keluar</a>
+                    </li>
+                </ul>
+
             </div>
         </div>
     </nav>
