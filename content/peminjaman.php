@@ -36,8 +36,8 @@ $query = mysqli_query($koneksi, "SELECT anggota.nama_anggota, peminjaman.*
                                     <td><?php echo $row['tgl_pengembalian'] ?></td>
                                     <td><?php echo $row['status'] ?></td>
                                     <td>
-                                        <a id="edit-user" data-id="<?php echo $row['id'] ?>" href="?pg=tambah-peminjaman&edit=<?php echo $row['id'] ?>"
-                                            class="btn btn-success btn-sm">Edit
+                                        <a id="edit-user" data-id="<?php echo $row['id'] ?>" href="?pg=tambah-peminjaman&detail=<?php echo $row['id'] ?>"
+                                            class="btn btn-success btn-sm">Detail
 
                                         </a> |
                                         <a
