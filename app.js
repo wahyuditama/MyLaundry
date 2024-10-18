@@ -11,7 +11,7 @@ addRow.addEventListener("click", function () {
   if (bukuId == "") {
     alert("Nama buku tidak boleh kosong");
   }
-  
+
   namaBukuCell.innerHTML = bukuName + "<input type='hidden' name='id_buku[]' value='" + bukuId + "'>";
   aksiCell.innerHTML = "<button type='button' onclick='deleteRow(this)' class='btn btn-sm btn-danger'>Hapus</button>";
 });
@@ -20,7 +20,3 @@ function deleteRow(button) {
   let row = button.parentNode.parentNode;
   row.parentNode.removeChild(row);
 }
-
-// $("#addRow").click(function () {
-
-// });
