@@ -86,6 +86,11 @@ $queryKodePnjm = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE status =
                                                 <input type="text" readonly
                                                     id="tgl_peminjaman" class="form-control">
                                             </div>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Denda</label>
+                                                <input type="text" readonly
+                                                    id="denda" class="form-control">
+                                            </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="mb-3">
@@ -106,40 +111,20 @@ $queryKodePnjm = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE status =
                         </div>
                     </div>
                     <!-- table data dari query dengan php -->
-                    <?php if (!empty($_GET['detail'])): ?>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Buku</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $no = 1;
-                                while ($rowDetailPeminjaman = mysqli_fetch_assoc($queryDetailPinjam)): ?>
-                                    <tr>
-                                        <td><?php echo $no++; ?></td>
-                                        <td><?php echo $rowDetailPeminjaman['nama_buku'] ?></td>
-                                    </tr>
-                                <?php endwhile ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <!-- ini table data dari js -->
-                        <table id="table" class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Nama Buku</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-row">
-                            </tbody>
-                        </table>
-                        <div class="mt-3">
-                            <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
-                        </div>
-                    <?php endif ?>
+                    <!-- ini table data dari js -->
+                    <table id="table-pengembalian" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nama Buku</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-row">
+                        </tbody>
+                    </table>
+                    <div class="mt-3">
+                        <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                    </div>
+
                 </form>
             </fieldset>
         </div>
