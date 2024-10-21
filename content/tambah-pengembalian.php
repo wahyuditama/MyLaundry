@@ -1,26 +1,27 @@
 <?php
 if (isset($_POST['simpan'])) {
-    $no_peminjaman   = $_POST['no_peminjaman'];
-    $id_anggota    = $_POST['id_anggota'];
-    $tgl_peminjaman = $_POST['tgl_peminjaman'];
-    $tgl_pengembalian   = $_POST['tgl_pengembalian'];
-    $id_buku   = $_POST['id_buku'];
-    $status = "Di Pinjam";
+    $id_peminjaman   = $_POST['id_peminjaman'];
+    $queryPeminjam = mysqli_query($koneksi, "SELECT id, no_peminjaman FROM peminjaman WHERE no_peminjaman='$id_peminjaman'");
 
+    $rowPeminjam = mysqli_fetch_assoc($queryPeminjam);
+    $id_peminjaman = $rowPeminjam['id'];
+    $denda           = $_POST['denda'];
+    if ($denda == 0) {
+        $status = 0;
+    } else {
+        $status = 1;
+    }
     // sql = structur query language / DML = data manipulation language
     // select, insert, update, delete
-    $insert = mysqli_query($koneksi, "INSERT INTO peminjaman 
-    (no_peminjaman, id_anggota, tgl_peminjaman, tgl_pengembalian, status) VALUES 
-    ('$no_peminjaman','$id_anggota','$tgl_peminjaman','$tgl_pengembalian', '$status')");
-    $id_peminjaman = mysqli_insert_id($koneksi);
+    $insert = mysqli_query($koneksi, "INSERT INTO pengembalian 
+    (id_peminjaman, status, denda) VALUES 
+    ('$id_peminjaman','$status','$denda')");
 
-    foreach ($id_buku as $key => $buku) {
-        $id_buku = $_POST['id_buku'][$key];
+    $updatePeminjam = mysqli_query($koneksi, "UPDATE peminjaman SET status ='Di Kembalikan' 
+    WHERE id='$id_peminjaman'");
 
-        $insertDetail = mysqli_query($koneksi, "INSERT INTO detail_peminjaman
-        (id_peminjaman, id_buku) VALUES ('$id_peminjaman','$id_buku')");
-    }
-    header("location:?pg=peminjaman&tambah=berhasil");
+
+    header("location:?pg=pengembalian&tambah=berhasil");
 }
 
 $id = isset($_GET['detail']) ? $_GET['detail'] : '';
@@ -88,7 +89,7 @@ $queryKodePnjm = mysqli_query($koneksi, "SELECT * FROM peminjaman WHERE status =
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Denda</label>
-                                                <input type="text" readonly
+                                                <input type="text" readonly name="denda"
                                                     id="denda" class="form-control">
                                             </div>
                                         </div>

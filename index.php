@@ -62,10 +62,13 @@ include 'function/helper.php';
             let tanggal_kembali = new moment(res.data.tgl_pengembalian);
 
             let currentDate = new Date().toJSON().slice(0, 10);
-            console.log(currentDate);
+
 
             let tanggal_di_kembalikan = new moment(currentDate);
             let selisih = tanggal_di_kembalikan.diff(tanggal_kembali, "days");
+            if (selisih < 0) {
+              selisih = 0;
+            }
 
             let biaya_denda = 50000;
             let totalDenda = selisih * biaya_denda;

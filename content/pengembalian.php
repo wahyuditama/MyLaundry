@@ -31,11 +31,11 @@ $query = mysqli_query($koneksi, "SELECT peminjaman.no_peminjaman, pengembalian.*
                                 <tr>
                                     <td><?php echo $no++ ?></td>
                                     <td><?php echo $row['no_peminjaman'] ?></td>
-                                    <td><?php echo date('status') ?></td>
+                                    <td><?php echo $row['status'] ?></td>
                                     <td><?php echo $row['denda'] ?></td>
                                     <td>
-                                        <a id="edit-user" data-id="<?php echo $row['id'] ?>" 
-                                        href="?pg=tambah-pengembalian&detail=<?php echo $row['id'] ?>"
+                                        <a id="edit-user" data-id="<?php echo $row['id'] ?>"
+                                            href="?pg=tambah-pengembalian&detail=<?php echo $row['id'] ?>"
                                             class="btn btn-success btn-sm">Detail
 
                                         </a> |

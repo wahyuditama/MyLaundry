@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2024 at 10:03 AM
+-- Generation Time: Oct 21, 2024 at 09:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,8 +85,7 @@ CREATE TABLE `detail_peminjaman` (
 --
 
 INSERT INTO `detail_peminjaman` (`id`, `id_peminjaman`, `id_buku`) VALUES
-(1, 1, 4),
-(2, 1, 5),
+(2, 2, 5),
 (3, 2, 4);
 
 -- --------------------------------------------------------
@@ -146,7 +145,7 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id`, `id_anggota`, `no_peminjaman`, `tgl_peminjaman`, `tgl_pengembalian`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 1, 'PJM/181024/001', '2024-10-18', '2024-10-21', 'Di Pinjam', '2024-10-18 01:44:52', '2024-10-18 02:05:43', 0);
+(2, 1, 'PJM/181024/001', '2024-10-18', '2024-10-20', 'Di Kembalikan', '2024-10-18 01:44:52', '2024-10-21 07:37:28', 0);
 
 -- --------------------------------------------------------
 
@@ -162,6 +161,13 @@ CREATE TABLE `pengembalian` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pengembalian`
+--
+
+INSERT INTO `pengembalian` (`id`, `id_peminjaman`, `status`, `denda`, `created_at`, `updated_at`) VALUES
+(3, 2, 1, 50000, '2024-10-21 07:37:28', '2024-10-21 07:37:28');
 
 -- --------------------------------------------------------
 
@@ -282,7 +288,7 @@ ALTER TABLE `peminjaman`
 -- AUTO_INCREMENT for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
