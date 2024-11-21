@@ -59,28 +59,6 @@ if (isset($_POST['simpan'])) {
 }
 
 
-$id  = isset($_GET['edit']) ? $_GET['edit'] : '';
-$queryEdit = mysqli_query($koneksi, "SELECT * FROM trans_order WHERE id ='$id'");
-$rowEdit   = mysqli_fetch_assoc($queryEdit);
-
-
-// jika button edit di klik
-
-if (isset($_POST['edit'])) {
-    $nama   = $_POST['nama'];
-    $email  = $_POST['email'];
-    $password = $_POST['password'];
-
-    // jika password di isi 
-    if ($_POST['passsword']) {
-        $password = $_POST['password'];
-    } else {
-        $password = $rowEdit['password'];
-    }
-
-    $update = mysqli_query($koneksi, "UPDATE trans_order SET nama='$nama',  email='$email', password ='$password' WHERE id='$id'");
-    header("location:trans_order.php?ubah=berhasil");
-}
 // Nomor Invoice
 // 001, jika ada auto increment id + 1 = 002, selain itu 001
 // menggunakan MAX/MIN (untuk ambil data terbesar/terkecil)
@@ -139,14 +117,14 @@ if (mysqli_num_rows($queryInvoice) > 0) {
         <div class="layout-container">
             <!-- Menu -->
 
-            <?php include 'inc/sidebar.php'; ?>
+            <?php include 'inc/sidebar.php' ?>
             <!-- / Menu -->
 
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
 
-                <?php include 'inc/nav.php'; ?>
+                <?php include 'inc/nav.php' ?>
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
@@ -156,12 +134,31 @@ if (mysqli_num_rows($queryInvoice) > 0) {
                         <!-- untuk detail -->
                         <div class="container-xxl flex-grow-1 container-p-y">
                             <div class="row">
-                                <div class="col-sm-12 mb-3"></div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-12 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    <h5 class="m-0 p-0">Transaksi Laundry :</h5>
+                                                    <h5 class="text-warning fst-italic"><br> <?php echo $row[0]['costumer_name'] ?></h5>
+                                                </div>
+                                                <div class="col-sm-6 mb-3 mb-sm-0" align="right">
+                                                    <a href="trans-order.php" class="btn btn-secondary"><i class='bx bx-arrow-back'></i></a>
+                                                    <a href="print.php?id=<?php echo $row[0]['id_order'] ?>" class="btn btn-success"><i class='bx bx-printer'></i></a>
+                                                    <?php if ($row[0]['status'] == 0): ?>
+                                                        <a href="tambah-pickup.php?ambil=<?php echo $row[0]['id_order'] ?>" class="btn btn-warning"><i class='bx bx-closet'></i></a>
+                                                    <?php endif ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-sm-6">
                                     <div class="card">
                                         <div class="card-header">
                                             <h5>Detail Data Transaksi</h5>
                                         </div>
+                                        <?php include 'helper.php' ?>
                                         <div class="card-Body">
                                             <table class="table table-bordered table-striped">
                                                 <tr>
@@ -174,16 +171,7 @@ if (mysqli_num_rows($queryInvoice) > 0) {
                                                 </tr>
                                                 <tr>
                                                     <th>Status</th>
-                                                    <td><?php switch ($row[0]['status']) {
-                                                            case '1':
-                                                                $badge = "<span class='badge bg-success'> sudah dikembalikan</span>";
-                                                                break;
-
-                                                            default:
-                                                                $badge = "<span class='badge bg-warning'> Baru</span>";
-                                                                break;
-                                                        }
-                                                        echo $badge; ?></td>
+                                                    <td><?php echo changeStatus($row[0]['status']) ?></td>
                                                 </tr>
                                             </table>
                                         </div>

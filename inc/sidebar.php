@@ -142,27 +142,27 @@
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
-                        <a href="service.php" class="menu-link" target="_blank">
-                            <div data-i18n="Basic">Service</div>
+                        <a href="trans-order.php" class="menu-link">
+                            <div data-i18n="Connections">Order / Transaksi</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="instruktur.php" class="menu-link" target="_blank">
+                        <a href="trans-pickup.php" class="menu-link">
                             <div data-i18n="Basic">Transaksi pengembalian</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="instruktur.php" class="menu-link" target="_blank">
+                        <a href="laporan.php" class="menu-link">
                             <div data-i18n="Basic">Laporan Transaksi</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="auth-register-basic.html" class="menu-link" target="_blank">
+                        <a href="auth-register-basic.html" class="menu-link">
                             <div data-i18n="Basic">Register</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
+                        <a href="auth-forgot-password-basic.html" class="menu-link">
                             <div data-i18n="Basic">Forgot Password</div>
                         </a>
                     </li>

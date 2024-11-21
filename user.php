@@ -55,14 +55,14 @@ if (isset($_GET['delete'])) {
         <div class="layout-container">
             <!-- Menu -->
 
-            <?php include 'inc/sidebar.php'; ?>
+            <?php include 'inc/sidebar.php' ?>
             <!-- / Menu -->
 
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
 
-                <?php include 'inc/nav.php'; ?>
+                <?php include 'inc/nav.php' ?>
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
