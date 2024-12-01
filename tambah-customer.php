@@ -1,17 +1,31 @@
 <?php
 session_start();
 include 'database/db.php';
-// munculkan / pilih sebuah atau semua kolom dari table user
-$querycostumer = mysqli_query($koneksi, "SELECT * FROM costumer");
-// mysqli_fetch_assoc($query) = untuk menjadikan hasil query menjadi sebuah data (object,array)
 
-// jika parameternya ada ?delete=nilai param
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete']; //mengambil nilai params
+// jika button simpan di tekan
+if (isset($_POST['simpan'])) {
+    $customer_name = $_POST['customer_name'];
+    $phone = $_POST['phone'];
+    $alamat = $_POST['alamat'];
 
-    // query / perintah hapus
-    $delete = mysqli_query($koneksi, "DELETE FROM costumer  WHERE id ='$id'");
-    header("location:costumer.php?hapus=berhasil");
+    $insert = mysqli_query($koneksi, "INSERT INTO customer (customer_name, phone, alamat) VALUES ('$customer_name','$phone','$alamat')");
+    header("location: customer.php?tambah=berhasil");
+}
+
+
+$id  = isset($_GET['edit']) ? $_GET['edit'] : '';
+$queryEdit = mysqli_query($koneksi, "SELECT * FROM customer WHERE id ='$id'");
+$rowEdit   = mysqli_fetch_assoc($queryEdit);
+
+
+// jika button edit di klik
+
+if (isset($_POST['edit'])) {
+    $customer_name   = $_POST['customer_name'];
+    $phone = $_POST['phone'];
+    $alamat = $_POST['alamat'];
+    $update = mysqli_query($koneksi, "UPDATE customer SET customer_name='$customer_name', phone='phone', alamat='alamat' WHERE id='$id'");
+    header("location:customer.php?ubah=berhasil");
 }
 ?>
 <!DOCTYPE html>
@@ -73,49 +87,50 @@ if (isset($_GET['delete'])) {
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="card">
-                                    <div class="card-header">Data costumer</div>
+                                    <div class="card-header"><?php echo isset($_GET['edit']) ? 'Edit' : 'Tambah' ?> customers</div>
                                     <div class="card-body">
                                         <?php if (isset($_GET['hapus'])): ?>
                                             <div class="alert alert-success" role="alert">
-
+                                                Data berhasil dihapus
                                             </div>
                                         <?php endif ?>
-                                        <div align="right" class="mb-3">
-                                            <a href="tambah-costumer.php" class="btn btn-primary">Tambah</a>
-                                        </div>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama costumer</th>
-                                                    <th>Telepon</th>
-                                                    <th>Alamat</th>
-                                                    <th>Aksi</th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php $no = 1;
-                                                while ($rowcostumer = mysqli_fetch_assoc($querycostumer)) { ?>
-                                                    <tr>
-                                                        <td><?php echo $no++ ?></td>
-                                                        <td><?php echo $rowcostumer['costumer_name'] ?></td>
-                                                        <td><?php echo $rowcostumer['phone'] ?></td>
-                                                        <td><?php echo $rowcostumer['alamat'] ?></td>
-                                                        <td>
-                                                            <a href="tambah-costumer.php?edit=<?php echo $rowcostumer['id'] ?>" class="btn btn-success btn-sm">
-                                                                <span class="tf-icon bx bx-pencil bx-18px "></span>
-                                                            </a>
-                                                            <a onclick="return confirm('Apakah anda yakin akan menghapus data ini??')"
-                                                                href="costumer.php?delete=<?php echo $rowcostumer['id'] ?>" class="btn btn-danger btn-sm">
-                                                                <span class="tf-icon bx bx-trash bx-18px "></span>
-                                                            </a>
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <div class="mb-3 row">
+                                                <div class="col-sm-6">
+                                                    <label for="" class="form-label">Tambah Nama customer</label>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        name="customer_name"
+                                                        placeholder="Masukkan nama customer anda"
+                                                        required
+                                                        value="<?php echo isset($_GET['edit']) ? $rowEdit['customer_name'] : '' ?>">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="" class="form-label">Nomor Telepon</label>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        name="phone"
+                                                        placeholder="Masukkan nomor telepon anda"
+                                                        required
+                                                        value="<?php echo isset($_GET['edit']) ? $rowEdit['phone'] : '' ?>">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="" class="form-label">Alamat</label>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        name="alamat"
+                                                        placeholder="Masukkan nama customer disini"
+                                                        required
+                                                        value="<?php echo isset($_GET['edit']) ? $rowEdit['alamat'] : '' ?>">
+                                                </div>
 
-                                                        </td>
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
+                                                <div class="mb-3">
+                                                    <button class="btn btn-primary" name="<?php echo isset($_GET['edit']) ? 'edit' : 'simpan' ?>" type="submit">
+                                                        Simpan
+                                                    </button>
+                                                </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

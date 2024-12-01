@@ -121,8 +121,8 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="costumer.php" class="menu-link">
-                            <div data-i18n="Connections">Costumesr</div>
+                        <a href="customer.php" class="menu-link">
+                            <div data-i18n="Connections">customer</div>
                         </a>
                     </li>
                     <li class="menu-item">

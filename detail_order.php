@@ -2,7 +2,7 @@
 session_start();
 include 'database/db.php';
 // munculkan / pilih sebuah atau semua kolom dari table user
-$queryUser = mysqli_query($koneksi, "SELECT costumer.nama_costumer, trans_order.* FROM trans_order JOIN costumer ON costumer.id = trans_order.id_costumer ORDER BY ID DESC");
+$queryUser = mysqli_query($koneksi, "SELECT customer.nama_customer, trans_order.* FROM trans_order JOIN customer ON customer.id = trans_order.id_customer ORDER BY ID DESC");
 // mysqli_fetch_assoc($query) = untuk menjadikan hasil query menjadi sebuah data (object,array)
 
 // jika parameternya ada ?delete=nilai param

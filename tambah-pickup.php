@@ -3,18 +3,18 @@ session_start();
 include 'database/db.php';
 
 // munculkan / pilih sebuah atau semua kolom dari table 
-$queryOrder = mysqli_query($koneksi, "SELECT * FROM costumer");
+$queryOrder = mysqli_query($koneksi, "SELECT * FROM customer");
 
 //join Dari Data detail_trans_order , service, trans_order
 $id =  isset($_GET['ambil']) ? $_GET['ambil'] : '';
-$querytrans_Detail = mysqli_query($koneksi, "SELECT costumer.costumer_name,costumer.phone,
-costumer.alamat, trans_order.order_code,
-trans_order.order_date,trans_order.status,trans_order.id_costomer,
+$querytrans_Detail = mysqli_query($koneksi, "SELECT customer.customer_name,customer.phone,
+customer.alamat, trans_order.order_code,
+trans_order.order_date,trans_order.status,trans_order.id_customer,
 service.service_name,service.harga, 
 detail_trans_order.*FROM detail_trans_order 
 LEFT JOIN service ON service.id = detail_trans_order.id_service 
 LEFT JOIN trans_order ON trans_order.id = detail_trans_order.id_order 
-LEFT JOIN costumer ON trans_order.id_costomer = costumer.id
+LEFT JOIN customer ON trans_order.id_customer = customer.id
 WHERE detail_trans_order.id_order='$id'");
 
 $row = [];
@@ -30,7 +30,7 @@ while ($data = mysqli_fetch_assoc($queryService)) {
 }
 // jika button simpan di tekan
 if (isset($_POST['simpan_transaksi'])) {
-    $id_costomer = $_POST['id_costomer'];
+    $id_customer = $_POST['id_customer'];
     $id_order = $_POST['id_order'];
     $pickup_pay = $_POST['pickup_pay'];
     $pickup_change = $_POST['pickup_change'];
@@ -38,7 +38,7 @@ if (isset($_POST['simpan_transaksi'])) {
     $pickup_date = date("Y-m-d ");
 
     // insert ke table trans order 
-    $insert = mysqli_query($koneksi, "INSERT INTO trans_laundry_pickup (id_costumer, id_order, pickup_pay, pickup_change, pickup_date) VALUES ('$id_costomer', '$id_order', '$pickup_pay', '$pickup_change', '$pickup_date')");
+    $insert = mysqli_query($koneksi, "INSERT INTO trans_laundry_pickup (id_customer, id_order, pickup_pay, pickup_change, pickup_date) VALUES ('$id_customer', '$id_order', '$pickup_pay', '$pickup_change', '$pickup_date')");
 
 
     //Ubah status Order jadi nilai[1]
@@ -131,7 +131,7 @@ if (mysqli_num_rows($queryInvoice) > 0) {
                                             <div class="row">
                                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                                     <h5 class="m-0 p-0">Pengambilan Laundry : </h5>
-                                                    <h5 class="text-warning fst-italic"><br> <?php echo $row[0]['costumer_name'] ?></h5>
+                                                    <h5 class="text-warning fst-italic"><br> <?php echo $row[0]['customer_name'] ?></h5>
                                                 </div>
                                                 <div class="col-sm-6 mb-3 mb-sm-0" align="right">
                                                     <a href="trans-order.php" class="btn btn-secondary"><i class='bx bx-arrow-back'></i></a>
@@ -175,7 +175,7 @@ if (mysqli_num_rows($queryInvoice) > 0) {
                                             <table class="table table-bordered table-striped">
                                                 <tr>
                                                     <th>Nama </th>
-                                                    <td><?php echo $row[0]['costumer_name'] ?></td>
+                                                    <td><?php echo $row[0]['customer_name'] ?></td>
                                                 </tr>
                                                 <tr>
                                                     <th>nomor Telepon</th>
@@ -259,7 +259,7 @@ if (mysqli_num_rows($queryInvoice) > 0) {
                                                             } ?>
                                                             <td>
                                                                 <input type="hidden" name="total" value="<?php echo $total ?>">
-                                                                <input type="hidden" name="id_costomer" value="<?php echo $row[0]['id_costomer'] ?>">
+                                                                <input type="hidden" name="id_customer" value="<?php echo $row[0]['id_customer'] ?>">
                                                                 <input type="hidden" name="id_order" value="<?php echo $row[0]['id_order'] ?>">
                                                                 <strong>
                                                                     <?php if (mysqli_num_rows($queryPickup)): ?>

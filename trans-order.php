@@ -2,7 +2,7 @@
 session_start();
 include 'database/db.php';
 // munculkan / pilih sebuah atau semua kolom dari table trans_order
-$querytrans_order = mysqli_query($koneksi, "SELECT costumer.costumer_name,trans_order.* FROM trans_order LEFT JOIN costumer ON costumer.id = trans_order.id_costomer ORDER BY ID DESC");
+$querytrans_order = mysqli_query($koneksi, "SELECT customer.customer_name,trans_order.* FROM trans_order LEFT JOIN customer ON customer.id = trans_order.id_customer ORDER BY ID DESC");
 // mysqli_fetch_assoc($query) = untuk menjadikan hasil query menjadi sebuah data (object,array)
 
 // jika parameternya ada ?delete=nilai param
@@ -100,7 +100,7 @@ if (isset($_GET['delete'])) {
                                                     <tr>
                                                         <td><?php echo $no++ ?></td>
                                                         <td><?php echo $rowtrans_order['order_code'] ?></td>
-                                                        <td><?php echo $rowtrans_order['costumer_name'] ?></td>
+                                                        <td><?php echo $rowtrans_order['customer_name'] ?></td>
                                                         <td><?php echo $rowtrans_order['order_date'] ?></td>
                                                         <td>
                                                             <?php switch ($rowtrans_order['status']) {

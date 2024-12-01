@@ -3,14 +3,14 @@ session_start();
 include 'database/db.php';
 
 // munculkan / pilih sebuah atau semua kolom dari table 
-$queryOrder = mysqli_query($koneksi, "SELECT * FROM costumer");
+$queryOrder = mysqli_query($koneksi, "SELECT * FROM customer");
 
 //join Dari Data detail_trans_order , service, trans_order
 $id =  isset($_GET['detail']) ? $_GET['detail'] : '';
-$querytrans_Detail = mysqli_query($koneksi, "SELECT costumer.costumer_name,costumer.phone,costumer.alamat, trans_order.order_code,trans_order.order_date,trans_order.status, service.service_name,service.harga, detail_trans_order.*FROM detail_trans_order 
+$querytrans_Detail = mysqli_query($koneksi, "SELECT customer.customer_name,customer.phone,customer.alamat, trans_order.order_code,trans_order.order_date,trans_order.status, service.service_name,service.harga, detail_trans_order.*FROM detail_trans_order 
 LEFT JOIN service ON service.id = detail_trans_order.id_service 
 LEFT JOIN trans_order ON trans_order.id = detail_trans_order.id_order 
-LEFT JOIN costumer ON trans_order.id_costomer = costumer.id
+LEFT JOIN customer ON trans_order.id_customer = customer.id
 WHERE detail_trans_order.id_order='$id'");
 
 $row = [];
@@ -27,14 +27,14 @@ while ($data = mysqli_fetch_assoc($queryService)) {
 // jika button simpan di tekan
 if (isset($_POST['simpan'])) {
 
-    $id_costomer = $_POST['id_costomer'];
+    $id_customer = $_POST['id_customer'];
     $order_code = $_POST['order_code'];
     $order_date = $_POST['order_date'];
     $keterangan = $_POST['keterangan'];
 
     $id_service = $_POST['id_service'];
     // insert ke table trans order 
-    $insert = mysqli_query($koneksi, "INSERT INTO trans_order (id_costomer, order_code, order_date, keterangan) VALUES ('$id_costomer', '$order_code', '$order_date', '$keterangan')");
+    $insert = mysqli_query($koneksi, "INSERT INTO trans_order (id_customer, order_code, order_date, keterangan) VALUES ('$id_customer', '$order_code', '$order_date', '$keterangan')");
 
     $last_id = mysqli_insert_id($koneksi);
     // Insert ke table trans_detail_order
@@ -140,7 +140,7 @@ if (mysqli_num_rows($queryInvoice) > 0) {
                                             <div class="row">
                                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                                     <h5 class="m-0 p-0">Transaksi Laundry :</h5>
-                                                    <h5 class="text-warning fst-italic"><br> <?php echo $row[0]['costumer_name'] ?></h5>
+                                                    <h5 class="text-warning fst-italic"><br> <?php echo $row[0]['customer_name'] ?></h5>
                                                 </div>
                                                 <div class="col-sm-6 mb-3 mb-sm-0" align="right">
                                                     <a href="trans-order.php" class="btn btn-secondary"><i class='bx bx-arrow-back'></i></a>
@@ -186,7 +186,7 @@ if (mysqli_num_rows($queryInvoice) > 0) {
                                             <table class="table table-bordered table-striped">
                                                 <tr>
                                                     <th>Nama </th>
-                                                    <td><?php echo $row[0]['costumer_name'] ?></td>
+                                                    <td><?php echo $row[0]['customer_name'] ?></td>
                                                 </tr>
                                                 <tr>
                                                     <th>nomor Telepon</th>
@@ -251,12 +251,12 @@ if (mysqli_num_rows($queryInvoice) > 0) {
 
                                                 <div class="mb-3 row">
                                                     <div class="col-sm-12">
-                                                        <label for="" class="form-label"> Costumer</label>
-                                                        <select data-mdb-select-init name="id_costomer" class="form-control">
-                                                            <option value="">Pilih Costumer</option>
+                                                        <label for="" class="form-label"> customer</label>
+                                                        <select data-mdb-select-init name="id_customer" class="form-control">
+                                                            <option value="">Pilih customer</option>
                                                             <?php while ($rowOrder = mysqli_fetch_assoc($queryOrder)) { ?>
-                                                                <option <?php echo isset($rowEdit['id_costomer']) ? ($rowOrder['id'] == $rowEdit['id_costomer']) ? 'selected' : '' : '' ?>
-                                                                    value="<?php echo $rowOrder['id'] ?>"><?php echo $rowOrder['costumer_name'] ?></option>
+                                                                <option <?php echo isset($rowEdit['id_customer']) ? ($rowOrder['id'] == $rowEdit['id_customer']) ? 'selected' : '' : '' ?>
+                                                                    value="<?php echo $rowOrder['id'] ?>"><?php echo $rowOrder['customer_name'] ?></option>
                                                             <?php } ?>
                                                         </select>
 
